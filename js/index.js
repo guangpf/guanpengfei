@@ -15,16 +15,18 @@ $(function(){
         //$(".list").fadeIn(500);
         //$(".footer").fadeIn(500);
     });
+       $(window).resize(function(){
+           if($(window).width()<=800){
+               $(".inner-list-item-title").click(function(){
+                   $(this).next("ul").slideToggle();
+               })
+           }else if($(window).width()>800){
+               $(".inner-list-item-title").click(function(){
+                   return false;
+               })
+           }
+       })
 
-        if($(window).width()<=800){
-            $(".inner-list-item-title").click(function(){
-                $(this).next("ul").slideToggle();
-            })
-        }else if($(window).width()>800){
-            $(".inner-list-item-title").click(function(){
-               return false;
-            })
-        }
 
     var currentNum=0;
     var nextNum=0;
@@ -105,7 +107,7 @@ $(function(){
                 })
                 currentNum=nextNum;
             }).css("zIndex",1);
-        }else{
+        }else if(nextNum<currentNum){
             $(".banner_list").eq(currentNum).animate({left:"100%"}).css("zIndex",1);
             $(".banner_list").eq(nextNum).css({
                 width:"80%",height:"80%",left:0

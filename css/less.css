@@ -158,8 +158,8 @@
   background-position: center ;
 }
 .second {
-  background: #fff url(../img/macbookpro_small.jpg) no-repeat;
-  background-size: contain;
+  background: #fff url(../img/macbookpro_portrait_small.jpg) no-repeat;
+  background-size: cover;
   background-position: center bottom;
 }
 .third {
@@ -487,3 +487,4 @@ li[class*=promo] {
   height: 200px;
   border: 1px solid #fff;
 }
+/*清除浮动*/
