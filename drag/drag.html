@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="touch.js"></script>
+    <script src="zepto.min.js"></script>
+</head>
+<style>
+    body,html{
+        margin:0;
+        padding:0;
+    }
+    .wheel{
+        width:100%;
+        height:500px;
+        overflow: hidden;
+    }
+    .box{
+        width:500%;
+        height:500px;
+        overflow: hidden;
+    }
+    img{
+        width:20%;
+        height:100%;
+        float:left;
+    }
+    .img:first-child{
+        background: red;
+    }
+    .img:nth-child(2){
+        background: pink;
+    }
+    .img:nth-child(3){
+        background: black;
+    }
+    .img:nth-child(4){
+        background: yellow;
+    }
+    .img:nth-child(5){
+        background: pink;
+    }
+</style>
+<script>
+$(function(){
+    var box=$(".box");
+    var w=$(window).width();
+    var leng=$(".box img").length;
+    $(".wheel").mousedown(function(e){
+        e.preventDefault();
+    });
+
+    $(".wheel").mousemove(function(e){
+        e.preventDefault();
+    })
+    var marginL;
+    var num=0;
+    touch.on("body","dragstart",box,function(){
+        box.css({
+            transition:"none"
+        });
+        marginL=parseInt($(".box").css("marginLeft"))?parseInt($(".box").css("marginLeft")):0;
+})
+    touch.on("body","drag",box,function(e){
+        box.css({
+            marginLeft:e.x+marginL+"px"
+        })
+    })
+    touch.on("body","dragend",box,function(e){
+        if(Math.abs(e.x)>200){
+            if(e.direction=="left"){
+                num++;
+                if(num==leng){
+                    num=leng-1
+                }
+            }else if(e.direction=="right"){
+                num--;
+                if(num==-1){
+                    num=0;
+                }
+            }
+            box.css({
+                marginLeft:-num*w,
+                transition:"margin 1s linear"
+            })
+        }else{
+            box.css({
+                marginLeft:0,
+                transition:"margin 1s linear"
+            })
+        }
+    })
+})
+</script>
+
+<body>
+<div class="wheel">
+ <div class="box">
+    <img src="1.jpg" alt="">
+    <img src="2.jpg" alt="">
+    <img src="3.jpg" alt="">
+    <img src="4.jpg" alt="">
+    <img src="1.png" alt="">
+ </div>
+</div>
+</body>
+</html>
